@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Globe, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTheme } from '../utils/ThemeContext';
 import Scene from '../components/Scene';
+import { LazyLoadImage } from 'zenui-image-react';
+import ImageLoader from '../utils/ImageLoader';
 
 const projects = [
   {
@@ -349,16 +351,23 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
           {/* Gallery */}
           <div className="relative aspect-video mb-6 rounded-lg overflow-hidden group">
             <AnimatePresence mode="wait">
-              <motion.img
+              <motion.div
                 key={currentImageIndex}
-                src={project.images[currentImageIndex]}
-                alt={`${project.title} preview ${currentImageIndex + 1}`}
-                className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500"
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.3 }}
-              />
+                className="w-full h-full transform group-hover:scale-110 transition-transform duration-500"
+              >
+                <LazyLoadImage
+                  src={project.images[currentImageIndex]}
+                  alt={`${project.title} preview ${currentImageIndex + 1}`}
+                  className="w-full h-full object-contain"
+                  placeholderType="custom"
+                  customPlaceholder={<ImageLoader />}
+                />
+              </motion.div>
+
             </AnimatePresence>
 
             <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -498,9 +507,11 @@ function Projects() {
                   <div className="absolute inset-0 rounded-2xl" />  
                   <div className="relative">
                     <div className="aspect-video rounded-lg overflow-hidden mb-4">
-                      <img
+                      <LazyLoadImage
                         src={project.cover}
                         alt={project.title}
+                        placeholderType="custom"
+                        customPlaceholder={<ImageLoader />}
                         className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
