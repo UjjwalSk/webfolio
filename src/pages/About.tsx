@@ -2,7 +2,7 @@ import { useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { motion } from 'framer-motion';
 import { Edges, Float } from '@react-three/drei';
-import { Briefcase, Code, School } from 'lucide-react';
+import { Briefcase, Code, School, Terminal } from 'lucide-react';
 import * as THREE from 'three';
 import { useTheme } from '../utils/ThemeContext';
 import Scene from '../components/Scene';
@@ -11,6 +11,14 @@ import Scene from '../components/Scene';
 const timelineData = [
   {
       "year": "Present",
+      "title": "Software Engineering-Engineer I",
+      "description": "Full Time",
+      "icon": Terminal,
+      "location": "FICO, Bangalore",
+      "logo": "/assets/images/about/fico-logo-blue.svg",
+  },
+  {
+      "year": "June 2024 - June 2025",
       "title": "Software Engineering-Associate",
       "description": "Full Time",
       "icon": Briefcase,
